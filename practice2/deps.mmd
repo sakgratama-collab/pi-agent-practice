@@ -1,0 +1,39 @@
+graph TD
+    subgraph L3["第 3 层：应用层"]
+        codingagent["coding-agent（pi 命令）"]
+        env["env（远程执行）"]
+    end
+    subgraph L2["第 2 层：运行时层"]
+        agent["agent（代理核心）"]
+        durable["durable（持久化运行时）"]
+    end
+    subgraph L1["第 1 层：能力层"]
+        ai["ai（统一大模型接口）"]
+        chord["chord（对象运行时）"]
+    end
+    subgraph L0["第 0 层：基础与独立工具层"]
+        schema["schema（JSON 校验）"]
+        telemetry["telemetry（遥测契约）"]
+        tui["tui（终端界面）"]
+        codemode["codemode（JS 沙箱）"]
+        mcp["mcp（MCP 客户端）"]
+    end
+
+    chord --> schema
+    chord --> telemetry
+    ai --> schema
+    ai --> telemetry
+    durable --> chord
+    durable --> ai
+    durable --> codemode
+    durable --> schema
+    durable --> telemetry
+    env --> chord
+    env --> durable
+    agent --> ai
+    agent --> schema
+    codingagent --> agent
+    codingagent --> ai
+    codingagent --> codemode
+    codingagent --> mcp
+    codingagent --> tui
